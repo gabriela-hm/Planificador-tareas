@@ -37,13 +37,12 @@
         </button>
       </nav>
     </header>
+    
 
-    <div class="layout-principal">
-      <main>
-        <h2>Saludo</h2>
-
-        
+    <main class="layout-principal">
+        <h2>Hola Gabi </h2>
         <section class="filtro-tarea">
+          <div class="">
             <button type="button" class="btn-filtro active" data-filtro="Todas" >
                 Todas
             </button>
@@ -55,22 +54,198 @@
             <button type="button" class="btn-filtro" data-filtro="Completadas" >
                 Completadas
             </button>
-          
+          </div>
+
+          <div class="grupo-acciones">
+            <select class="select-prioridad" aria-label="Filtrar por prioridad">
+              <option value="" disabled selected >Prioridades</option>
+              <option value="alta">Alta</option>
+              <option value="media">Media</option>
+              <option value="baja">Baja</option>
+            </select>
+
+            <button type="button" class="btn-nueva-tarea" data-bs-toggle="modal" data-bs-target="#modalNuevaTarea">
+              <i class="fa-solid fa-plus"></i> Nueva Tarea
+            </button>
+          </div>
         </section>
 
-        
-        <section class="lista-tareas">
-         
-        </section>
-      </main>
+        <!-- Panel de Tareas -->
+      <section class="lista-tareas">
+         <article class="tarjeta-tarea">
+          <!-- check -->
+          <div class="tarea-check">
+            <input type="checkbox" class="form-check-input check-completar" id="tarea-1" aria-label="Marcar tarea como completada" />
+          </div>
 
+          <div class="tarea-contenido">
+            <div class="tarea-header-info">
+              <h4 class="tarea-nombre">Diseñar tarjeta de Tarea</h4>
+              <span class="badge badge-categoria">Estudio</span>
+              <span class="badge badge-prioridad prioridad-alta">Alta</span>
+            </div>
+            <p class="tarea-descripcion">
+              Crear la estructura HTML y CSS para la tarjeta de tareas
+            </p>
+            <div class="tarea-meta">
+              <span class="tarea-fecha">
+                <i class="fa-regular fa-calendar"></i> 3 Nov 2026
+              </span>
+              <button type="button" class="btn-subtarea"  onclick="mostrarInputSubtarea(1)">
+                <i class="fa-solid fa-square-plus"></i> Agregar subtarea
+              </button>
+            </div>
+            <ul class="lista-subtareas" id="lista-subtareas-1">
+              <li class="subtarea-item">
+                <div class="suubtarea-izquierda">
+                  <input type="checkbox" class="form-check-input" id="sub-1">
+                  <label for="sub-1">Crear estructura HTML</label>
+                </div>
+                <button type="button" class="btn-borrar-subtarea" title="Eliminar subtarea" onclick="this.closest('li').remove()">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </li>
+            </ul>
+            <!-- inline para nueva subtarea -->
+            <div class="input-grupo-subtarea" id="contenedorInputSubtarea-1" style="display:none; margin-top: 0-5rem;">
+              <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="Escribe una nueva subtarea..." id="inputNuevaSubtarea-1" />
+                <button type="button" class="btn btn-primary" onclick="guardarSubtarea(1)">Añadir</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Editar y Borrar -->
+           <div class="tarea-acciones">
+            <button type="button" class="btn-accion btn-editar" title="Editar tarea">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button type="button" class="btn-accion btn-borrar" title="Eliminar tarea">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+           </div>
+
+
+         </article>
+      </section>
       
+
+      <!-- Tarjeta lateral de resumen -->
       <aside class="panel-lateral">
         <h3>Resúmen</h3>
-        
-      </aside>
-    </div>
+        <div class="tarjeta-resumen" tarjeta-total>
+          <div class="resumen-encabezado">
+            <span class="resumen-titulo">Total de Tareas</span>
+          </div>
+          <h4 class="resumen-tareas" id="totalTareas">13</h4>
+        </div>
 
+        <div class="tarjeta-resumen" tarjeta-completadas>
+          <div class="resumen-encabezado">
+            <div class="resumen-info-icono">
+              <i class="fa-solid fa-circle-check"></i>
+              <span class="resumen-titulo">Completadas</span>
+            </div>
+            <h4 class="resumen-contador" id="TotalCompletadas">12/13</h4>
+          </div>
+          <div class="barra-progreso-contenedor">
+            <div class="barra-progreso-fill fill-completadas" id="barraCompletadas" style="width: 75%;"></div>
+          </div>
+        </div>
+
+        <div class="tarjeta-resumen" tarjeta-pendientes>
+          <div class="resumen-encabezado">
+            <div class="resumen-info-icono">
+              <i class="fa-solid fa-clock"></i>
+              <span class="resumen-titulo">Pendientes</span>
+            </div>
+            <h4 class="resumen-contador" id="totalPendientes">1/13</h4>
+          </div>
+          <div class="barra-progreso-contenedor">
+            <div class="barra-progreso-fill fill-pendientes" id="barraPendientes" style="width: 15%;"></div>
+          </div>
+        </div>
+
+        <div class="tarjeta-resumen tarjeta-progreso">
+          <div class="resumen-encabezado">
+            <span>Porcentaje de Éxito</span>
+            <span class="porcentaje-texto" id="porcentajeEcito">75%</span>
+          </div>
+          <div class="barra-progreso-contenedor">
+            <div class="barra-progreso-fill fill-exito" id="barraExito" style="width: 75%;"></div>
+          </div>
+          <p class="mensaje-motivacional" id="mensajeMotivacional">
+            Lo estás haciendo genial!
+          </p>
+        </div>
+      </aside>
+
+      <!-- modal nueva tarea -->
+      <div class="modal fade" id="modalNuevaTarea" tabindex="-1" aria-labelledby="modalNuevaTareaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalNuevaTareaLabel">Crear Nueva Tarea</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+
+          <div class="modal-body">
+            <form id="formNuevaTarea">
+              <div class="mb-3">
+                <label for="tituloTarea" class="form-label">Título de la tarea</label>
+                <input type="text" class="form-control" id="tituloTarea" placeholder="Ej.Revisar plataforma" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="prioridadTareaModal" class="form-label">Prioridad</label>
+                <select class="from-select" id="prioridadTareaModal" required>
+                  <option value="alta">Alta</option>
+                  <option value="media">Media</option>
+                  <option value="baja">Baja</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="categoriaTarea" class="form-label">Categoría</label>
+                <select class="form-select" id="categoriaTarea" required>
+                  <option value="" disabled selected>Seleciona una categoría</option>
+                  <option value="universidad">Universidad</option>
+                  <option value="Trabajo">Trabajo</option>
+                  <option value="estudio">Estudio</option>
+                  <option value="oficio">Oficio</option>
+                  <option value="hobbie">Hobbie</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="fechaTarea" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="fechaTarea">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button type="submit" form="formNuevaTarea" class="btn btn-primary">
+              Guardar Tarea
+            </button>
+          </div>
+        </div>
+      </div>   
+      </div>
+    </main>
+
+    <!-- flotamte con descripcion de la obra de arte actual-->
+    <aside class="cuadro-arte-info" id="cuadroArteInfo">
+      <div class="arte-texto-contenido">
+        <h5 id="arteTitulo" class="arte-titulo">Titulo de la obra</h5>
+        <p id="arteAutor" class="arte-autor">Artista / año</p>
+        <p id="arteDescripcion" class="arte-descripcion">Breve descripcion de la pintura que adorna el fondo de la web...</p>
+      </div>
+    </aside>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
