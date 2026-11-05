@@ -1,0 +1,501 @@
+:root {
+  --color-tarjeta-bg: rgba(255, 255, 255, 0.90);
+  --color-borde-cristal: rgba(255, 255, 255, 0.7);
+  --color-texto-principal: #1f1f1f;
+  --color-texto-secundario: #606060;
+  --color-acento: #b08d57;
+  --color-acento-hover: #967644;
+  --sombra-sutil: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+body{
+  font-family:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--color-texto-principal);
+  background-size: cover; /* imagen de fondo cubra todo el espacio sin distorsionarse */
+  background-position: center; /* centra la imagen fondo, horizontal y vertical */
+  background-attachment: fixed; /* mantiene la imagen de fondo fija mientras el contenido hace scroll */
+  min-height: 100vh;
+  margin: 0;
+}
+
+header {
+  padding: 1rem 0;
+}
+
+header .container {
+  max-width: 1100px; /* maximo de la barra de navegación */
+  margin: 0 auto;
+  padding: 0 1 rem;
+  display: flex;
+  justify-content: space-between; /* unbica un elemento en cada extremo del contenedor */
+  align-items: center;
+}
+
+.buscador {
+  flex: 1;
+  max-width: 420px
+}
+
+.btn-buscar {
+  display: flex;
+  align-items: center; /* centra el icono */
+  width: 100%;
+  background: var(--color-tarjeta-bg);
+  backdrop-filter: blur(8px); /* desenfoque a lo que está detrás */
+  border: 1px solid var(--color-borde-cristal);
+  padding: 0.35rem o.85rem;
+  border-radius: 50px;
+  box-shadow: var(--sombra-sutil);
+}
+
+.btn-buscar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  margin-left: 0.5rem; /* distancia del texto y el icono */
+  font-size: 0.875rem;
+  color: var(--color-texto-principal);
+}
+
+.btn-icono {
+  background: var(--color-tarjeta-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-borde-cristal);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-texto-principal);
+  box-shadow: var(--sombra-sutil);
+  transition: background 0.2s;
+  font-size: 0.9rem;
+
+}
+
+.btn-icono:hover {
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.layout-principal {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.25rem; /* separación entre columns */
+  align-items: start; /* alinea los elementos de la cuadricula al inicio vertical */
+}
+
+.layout-principal h2 {
+  grid-column: 1 / -1; /*h2 ocupe todo el ancho completo de los 1100px  */
+  font-size: 1.35rem;
+  font-weight: 700; /* valor negrita */
+  margin-bottom: 2rem; /* espacio entre el boton de todas */
+  color: var(--color-texto-principal);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.filtro-tarea {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;/* los elememnto salta a la linea siguiente si el espacio horizontal se acaba */
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.btn-filtro {
+  background: var(--color-tarjeta-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-borde-cristal);
+  padding: 0.35rem 0.9rem; /* relleno interno del botón */
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-texto-secundario);
+  cursor: pointer;
+  transition: all 0.2s ease; /* suaviza un cambio de estado, ease(curva de aceleración): empiece despacio, acelere y termine suave */
+}
+
+.btn-filtro.active, .btn-filtro:hover {
+  background-color: var(--color-acento);
+  color: #ffffff;
+  border-color: var(--color-acento);
+}
+
+.grupo-acciones {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.select-prioridad {
+  background: var(--color-tarjeta-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-borde-cristal);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--color-texto-principal);
+  outline: none;
+}
+
+.btn-nueva-tarea {
+  background-color: var(--color-acento);
+  border: none;
+  color: #ffffff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.2s;
+}
+
+.btn-nueva-tarea:hover {
+  background-color: var(--color-acento-hover);
+}
+
+.lista-tareas {
+  display: flex;
+  flex-direction: column; /* apila cada tarea debajo de la otra */
+  gap: 0.75rem;
+}
+
+.tarjeta-tarea {
+  display: flex;
+  align-items: flex-start; /* si el texto crece, permite que los botones y el checkbox se mantenga alinados arriba */
+  gap: 0.75rem; /* interna de la tarjeta */
+  background-color: var(--color-tarjeta-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-borde-cristal);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  box-shadow: var(--sombra-sutil);/* sombra alrededor */
+}
+
+.tarea-check {
+  padding-top: 0.15rem;
+}
+
+.form-check-input {
+  width: 1em;
+  height: 1em;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-acento);
+  border-color: var(--color-acento);
+}
+
+.form-check-input:focus {
+  border-color: var(--color-acento);
+  box-shadow: 0  0 0.25rem var(--color-acento-hover)
+}
+
+.tarea-contenido {
+  flex: 1;
+}
+
+.tarea-header-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.tarea-nombre {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-texto-principal);
+}  
+
+.badge-categoria {
+  background-color: rgba(176, 141, 87, 0.15);
+  color: #8c6e3f;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.badge-prioridad.prioridad-alta {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.tarea-descripcion {
+  font-size: 0.825rem;
+  color: var(--color-texto-secundario);
+  margin-bottom: 0.5rem;
+}
+
+.tarea-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.775rem;
+  color: var(--color-texto-secundario);
+  margin-bottom: 0.4rem;
+}
+
+.btn-subtarea {
+  background: none;
+  border: none;
+  color: var(--color-acento);
+  padding: 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.775rem;
+}
+.btn-subtarea:hover {
+  color: var(--color-acento-hover);
+}
+
+.lista-subtareas {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.35rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.subtarea-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.subtarea-item:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.suubtarea-izquierda {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-borrar-subtarea {
+  background: none;
+  border: none;
+  color: #adb5bd;
+  cursor: pointer;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.subtarea-item:hover .btn-borrar-subtarea {
+  opacity: 1;
+}
+
+.btn-borrar-subtarea:hover {
+  color: #dc3545;
+}
+
+.tarea-acciones {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-accion {
+  background: transparent;
+  border: none;
+  color: var(--color-texto-secundario);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.btn-editar:hover {
+  color: var(--color-acento);
+}
+
+.btn-borrar:hover {
+  color: #dc3545;
+}
+
+/* RESUMEN */
+.panel-lateral{
+  background-color: var(--color-tarjeta-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-borde-cristal);
+  border-radius: 12px;
+  padding: 1.15rem;
+  box-shadow: var(--sombra-sutil);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: sticky; /* pega el elemento mientras se hace scroll */
+  top: 1.5rem;
+}
+
+.panel-lateral {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.panel-titulo {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-texto-principal);
+  margin: 0 0 0.2rem 0;
+}
+
+.tarjeta-resumen {
+  background-color: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  padding: 0.75rem 0.85rem;
+}
+
+.resumen-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.resumen-titulo {
+  font-size: 0.8rem;
+  color: var(--color-texto-secundario);
+  font-weight: 500;
+}
+
+.resumen-tareas, .resumen-contador, .porcentaje-texto {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-texto-principal);
+  margin: 0;
+}
+
+.resumen-info-icono {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.resumen-info-icono i {
+  color: var(--color-acento);
+}
+
+.barra-progreso-contenedor {
+  width: 100%;
+  height: 5px;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.3rem 0;
+}
+
+.barra-progreso-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.4s ease-in-out;
+}
+
+.fill-completadas {
+  background-color: #198754;
+}
+
+.fill-pendientes {
+  background-color: #ffc107;
+}
+
+.fill-exito {
+  background-color: var(--color-acento);
+}
+
+.mensaje-motivacional {
+  font-size: 0.75rem;
+  color: var(--color-texto-secundario);
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+/* decripcion arte */
+.cuadro-arte-info {
+  grid-column: 2;
+  background-color: var(--color-tarjeta-bg);
+  backdrop-filter: blur(10px);
+  border-left: 3px solid var(--color-acento);
+  border-top: 1px solid var(--color-borde-cristal);
+  border-right: 1px solid var(--color-borde-cristal);
+  border-bottom: 1px solid var(--color-borde-cristal);
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  box-shadow: var(--sombra-sutil);
+  margin-top: 0.75rem; 
+}
+
+.arte-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem 0;
+  color: var(--color-texto-principal);
+}
+
+.arte-autor {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-acento);
+  margin: 0 0 0.35rem 0;
+}
+
+
+.arte-descripcion {
+  font-size: 0.75rem;
+  color: var(--color-texto-secundario);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-borde-cristal);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.modal-header, .modal-footer {
+  border-color: rgba(0, 0, 0, 0.06);
+  padding: 0.75rem 1rem;
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+.modal .btn-primary {
+  background-color: var(--color-acento);
+  border-color: var(--color-acento);
+}
+
+.modal .btn-primary:hover {
+  background-color: var(--color-acento-hover);
+  border-color: var(--color-acento-hover);
+}
+
+/* poner responsive */
