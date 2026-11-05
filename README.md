@@ -14,4 +14,4 @@
 8. cambiar colores de categorias
 9. eliminar y editar tareas y subtareas
 10. revisar colores de prioridad
-11. hacer resumen funcional
+11. hacer la tarjeta resumen funcional
