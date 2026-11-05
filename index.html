@@ -58,7 +58,7 @@
 
           <div class="grupo-acciones">
             <select class="select-prioridad" aria-label="Filtrar por prioridad">
-              <option value="" disabled selected >Prioridades</option>
+              <option value="" disabled selected >Prioridad</option>
               <option value="alta">Alta</option>
               <option value="media">Media</option>
               <option value="baja">Baja</option>
@@ -71,7 +71,7 @@
         </section>
 
         <!-- Panel de Tareas -->
-      <section class="lista-tareas">
+        <section class="lista-tareas">
          <article class="tarjeta-tarea">
           <!-- check -->
           <div class="tarea-check">
@@ -91,7 +91,7 @@
               <span class="tarea-fecha">
                 <i class="fa-regular fa-calendar"></i> 3 Nov 2026
               </span>
-              <button type="button" class="btn-subtarea"  onclick="mostrarInputSubtarea(1)">
+              <button type="button" class="btn-subtarea" data-bs-toggle="modal" data-bs-target="#modalNuevaSubtarea" onclick="mostrarInputSubtarea(1)">
                 <i class="fa-solid fa-square-plus"></i> Agregar subtarea
               </button>
             </div>
@@ -128,7 +128,7 @@
 
 
 
-                  <article class="tarjeta-tarea">
+          <article class="tarjeta-tarea">
           <!-- check -->
           <div class="tarea-check">
             <input type="checkbox" class="form-check-input check-completar" id="tarea-1" aria-label="Marcar tarea como completada" />
@@ -147,8 +147,8 @@
               <span class="tarea-fecha">
                 <i class="fa-regular fa-calendar"></i> 3 Nov 2026
               </span>
-              <button type="button" class="btn-subtarea"  onclick="mostrarInputSubtarea(1)">
-                <i class="fa-solid fa-square-plus"></i> Agregar subtarea
+              <button type="button" class="btn-subtarea"  data-bs-toggle="modal" data-bs-target="#modalNuevaSubtarea" onclick="mostrarInputSubtarea(1)">
+                <i class="fa-solid fa-square-plus" ></i> Agregar subtarea
               </button>
             </div>
             <ul class="lista-subtareas" id="lista-subtareas-1">
@@ -204,7 +204,7 @@
               <span class="tarea-fecha">
                 <i class="fa-regular fa-calendar"></i> 3 Nov 2026
               </span>
-              <button type="button" class="btn-subtarea"  onclick="mostrarInputSubtarea(1)">
+              <button type="button" class="btn-subtarea"  data-bs-toggle="modal" data-bs-target="#modalNuevaSubtarea" onclick="mostrarInputSubtarea(1)">
                 <i class="fa-solid fa-square-plus"></i> Agregar subtarea
               </button>
             </div>
@@ -259,7 +259,7 @@
               <span class="tarea-fecha">
                 <i class="fa-regular fa-calendar"></i> 3 Nov 2026
               </span>
-              <button type="button" class="btn-subtarea"  onclick="mostrarInputSubtarea(1)">
+              <button type="button" class="btn-subtarea"  data-bs-toggle="modal" data-bs-target="#modalNuevaSubtarea" onclick="mostrarInputSubtarea(1)">
                 <i class="fa-solid fa-square-plus"></i> Agregar subtarea
               </button>
             </div>
@@ -314,7 +314,7 @@
               <span class="tarea-fecha">
                 <i class="fa-regular fa-calendar"></i> 3 Nov 2026
               </span>
-              <button type="button" class="btn-subtarea"  onclick="mostrarInputSubtarea(1)">
+              <button type="button" class="btn-subtarea"  data-bs-toggle="modal" data-bs-target="#modalNuevaSubtarea" onclick="mostrarInputSubtarea(1)">
                 <i class="fa-solid fa-square-plus"></i> Agregar subtarea
               </button>
             </div>
@@ -350,7 +350,7 @@
 
 
          </article>
-      </section>
+        </section>
       
       
 
@@ -402,10 +402,8 @@
             Lo estás haciendo genial!
           </p>
         </div>
-
-
-      </aside>        
-      <!-- flotamte con descripcion de la obra de arte actual-->
+      </aside>
+      
       <aside class="cuadro-arte-info" id="cuadroArteInfo">
         <div class="arte-texto-contenido">
           <h5 id="arteTitulo" class="arte-titulo">Titulo de la obra</h5>
@@ -413,65 +411,78 @@
           <p id="arteDescripcion" class="arte-descripcion">Breve descripcion de la pintura que adorna el fondo de la web...</p>
         </div>
       </aside>
+      <!-- flotamte con descripcion de la obra de arte actual-->
+      
 
 
 
       <!-- modal nueva tarea -->
-      <div class="modal fade" id="modalNuevaTarea" tabindex="-1" aria-labelledby="modalNuevaTareaLabel" aria-hidden="true">
+      <div class="modal" id="modalNuevaTarea" tabindex="-1" aria-labelledby="modalNuevaTareaLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <h5 class="modal-title" id="modalNuevaTareaLabel">Crear Nueva Tarea</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalNuevaTareaLabel">Crear Nueva Tarea</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
 
-          <div class="modal-body">
-            <form id="formNuevaTarea">
-              <div class="mb-3">
-                <label for="tituloTarea" class="form-label">Título de la tarea</label>
-                <input type="text" class="form-control" id="tituloTarea" placeholder="Ej.Revisar plataforma" required />
-              </div>
+            <div class="modal-body">
+              <div id="alertaError" class="alert alert-danger d-none" role="alert">
+                  Hay datos incompletos, completa los campos requeridos antes de guardar.
+                </div>
+              <form id="formNuevaTarea">
+                <div class="mb-3">
+                  <label for="tituloTarea" class="form-label">Título de la tarea</label>
+                  <input type="text" class="form-control" id="tituloTarea" placeholder="Ej.Diseñar CSS" aria-required="true" required />
+                </div>
 
-              <div class="mb-3">
-                <label for="prioridadTareaModal" class="form-label">Prioridad</label>
-                <select class="from-select" id="prioridadTareaModal" required>
-                  <option value="alta">Alta</option>
-                  <option value="media">Media</option>
-                  <option value="baja">Baja</option>
-                </select>
-              </div>
+                <div class="mb-3">
+                  <label for="prioridadTareaModal" class="form-label">Prioridad</label>
+                  <select class="from-select" id="prioridadTareaModal" aria-required="true" required>
+                    <option value="alta">Alta</option>
+                    <option value="media">Media</option>
+                    <option value="baja">Baja</option>
+                  </select>
+                </div>
 
-              <div class="mb-3">
-                <label for="categoriaTarea" class="form-label">Categoría</label>
-                <select class="form-select" id="categoriaTarea" required>
-                  <option value="" disabled selected>Seleciona una categoría</option>
-                  <option value="universidad">Universidad</option>
-                  <option value="Trabajo">Trabajo</option>
-                  <option value="estudio">Estudio</option>
-                  <option value="oficio">Oficio</option>
-                  <option value="hobbie">Hobbie</option>
-                </select>
-              </div>
+                <div class="mb-3">
+                  <label for="categoriaTarea" class="form-label">Categoría</label>
+                  <select class="form-select" id="categoriaTarea" aria-required="true" required>
+                    <option value="" disabled selected>Seleciona una categoría</option>
+                    <option value="universidad">Universidad</option>
+                    <option value="Trabajo">Trabajo</option>
+                    <option value="estudio">Estudio</option>
+                    <option value="oficio">Oficio</option>
+                    <option value="hobbie">Hobbie</option>
+                  </select>
+                </div>
 
-              <div class="mb-3">
-                <label for="fechaTarea" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="fechaTarea">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Cancelar
-            </button>
-            <button type="submit" form="formNuevaTarea" class="btn btn-primary">
-              Guardar Tarea
-            </button>
+                <div class=" mb-3">
+                  <label for="desscripcionTarea" class="form-label">Descripción</label>
+                  <textarea class="form-control" id="descripcionTarea" rows="3" placeholder="Escribe detalles de tu tarea..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="fechaTarea" class="form-label" aria-required="true">Fecha</label>
+                  <input type="date" class="form-control" id="fechaTarea" required>
+                </div>
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancelar
+              </button>
+              <button type="submit" form="formNuevaTarea" class="btn btn-primary">
+                Guardar Tarea
+              </button>
+            </div>
           </div>
         </div>
       </div>   
       
 
       <!-- Modal para Agregar Subtarea -->
-      <div class="modal fade" id="modalNuevaSubtarea" tabindex="-1" aria-labelledby="modalSubtareaLabel"  aria-hidden="true">
+      <div class="modal" id="modalNuevaSubtarea" tabindex="-1" aria-labelledby="modalSubtareaLabel"  aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
           <div class="modal-content">
             <div class="modal-header">

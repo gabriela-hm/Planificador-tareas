@@ -33,7 +33,7 @@ header .container {
 
 .buscador {
   flex: 1;
-  max-width: 420px
+  max-width: 600px
 }
 
 .btn-buscar {
@@ -43,7 +43,7 @@ header .container {
   background: var(--color-tarjeta-bg);
   backdrop-filter: blur(8px); /* desenfoque a lo que está detrás */
   border: 1px solid var(--color-borde-cristal);
-  padding: 0.35rem o.85rem;
+  padding: 0.54rem 0.85rem;
   border-radius: 50px;
   box-shadow: var(--sombra-sutil);
 }
@@ -92,9 +92,9 @@ header .container {
 
 .layout-principal h2 {
   grid-column: 1 / -1; /*h2 ocupe todo el ancho completo de los 1100px  */
-  font-size: 1.35rem;
+  font-size: 2.35rem;
   font-weight: 700; /* valor negrita */
-  margin-bottom: 2rem; /* espacio entre el boton de todas */
+  margin-bottom: 0.87rem; /* espacio entre el boton de todas */
   color: var(--color-texto-principal);
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
@@ -102,10 +102,10 @@ header .container {
 .filtro-tarea {
   grid-column: 1 / -1;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;/* los elememnto salta a la linea siguiente si el espacio horizontal se acaba */
-  gap: 0.75rem;
+  gap: 9.32rem;
   margin-bottom: 0.25rem;
 }
 
@@ -138,11 +138,26 @@ header .container {
   background: var(--color-tarjeta-bg);
   backdrop-filter: blur(8px);
   border: 1px solid var(--color-borde-cristal);
-  padding: 0.35rem 0.75rem;
+  padding: 0.35rem 0.9rem;
   border-radius: 6px;
   font-size: 0.85rem;
-  color: var(--color-texto-principal);
+  font-weight: 500;
+  color: var(--color-texto-secundario);
+  cursor: pointer;
   outline: none;
+  transition: all 0.2s ease;
+}
+
+.select-prioridad:focus {
+  border-color: var(--color-acento);
+  box-shadow: 0 0 0 2px var(--color-acento); 
+}
+
+.select-prioridad option:checked,
+.select-prioridad option:hover,
+.select-prioridad option:focus {
+  background-color: var(--color-acento) !important;
+  color: #ffffff !important;
 }
 
 .btn-nueva-tarea {
@@ -446,7 +461,10 @@ header .container {
   padding: 0.85rem 1rem;
   border-radius: 8px;
   box-shadow: var(--sombra-sutil);
-  margin-top: 0.75rem; 
+  position: sticky;
+  z-index: 10;
+  top: 24rem;
+  margin-top: 0.85rem;
 }
 
 .arte-titulo {
