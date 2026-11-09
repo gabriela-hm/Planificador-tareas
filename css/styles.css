@@ -196,8 +196,15 @@ header .container {
   box-shadow: var(--sombra-sutil);/* sombra alrededor */
 }
 
+
 .tarea-check {
   padding-top: 0.15rem;
+}
+
+.tarjeta-tarea:has(.check-completar:checked) .tarea-nombre {
+  text-decoration: line-through;
+  color: var(--color-texto-secundario);
+  opacity: 0.6;
 }
 
 .form-check-input {
@@ -321,6 +328,11 @@ header .container {
 
 .subtarea-item:hover .btn-borrar-subtarea {
   opacity: 1;
+}
+.subtarea-completada {
+  text-decoration: line-through;
+  color: var(--color-texto-secundario);
+  opacity: 0.6;
 }
 
 .btn-borrar-subtarea:hover {

@@ -1,3 +1,8 @@
+const taskManager = new TaskManager();
+console.log(taskManager.tasks);
+
+
+
 //FONDO WEB 
 document.addEventListener("DOMContentLoaded", () => {
   
@@ -55,7 +60,38 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+//SUBRAYADO DE TAREA COMPLETADA 
+const checksCompletar = document.querySelectorAll(".check-completar");
+checksCompletar.forEach((checkbox) =>{
+  checkbox.addEventListener("change", (event) =>{
+    const tarjetaTarea = event.target.closest(".tarjeta-tarea");
 
+    if(tarjetaTarea){
+      if (event.target.checked) {
+        tarjetaTarea.classList.add("tarea-completada");
+      } else {
+        tarjetaTarea.classList.remove("tarea-completada");
+      }
+    }
+  });
+});
+
+//SUBRAYADO DE SUBTAREA COMPLETADA
+document.addEventListener("change", (event) => {
+
+  if (event.target.matches(".subtarea-item input[type='checkbox']") || event.target.matches(".lista-subtareas input[type='checkbox']")) {
+    const subtareaItem = event.target.closest(".subtarea-item");
+    const label = subtareaItem ? subtareaItem.querySelector("label") : null;
+
+    if (label) {
+      if (event.target.checked) {
+        label.classList.add("subtarea-completada");
+      } else {
+        label.classList.remove("subtarea-completada");
+      }
+    }
+  }
+});
 
 //VALIDACION DE CAMPOS FORMULARIO NUEVA TAREA
 function validFormFieldInput(data) {
@@ -117,3 +153,5 @@ if(formNuevaTarea){
   })
 }
 //VALIDACION DE CAMPOS FORMULARIO SUBTAREA
+const formNuevaSubtarea = document.querySelector('#formNuevaSubtarea');
+
