@@ -6,7 +6,7 @@
 
 1. subir la card de arte debajo de resumen
 2. adjuntar la foto de arte en la targeta de arte, para que sea mas visible, añadir datos
-3. hacer el boton de calendario funcional
+3. Organizar colores calendar
 4. hhacer el boton de buscador funcional.
 5. validacion de campo subtarea
 6. reflejar tarea en tarjetas

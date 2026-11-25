@@ -27,14 +27,23 @@
           </button>
         </form>
 
-        <button
-          type="button"
-          class="btn-icono"
-          aria-label="Abrir calendario"
-          onclick="abrirModal()"
-        >
-          <i class="fa-solid fa-calendar"></i>
-        </button>
+        <div class="contenedor-calendario">
+          <button type="button" class="btn-icono" aria-label="Abrir calendario" >
+            <i class="fa-solid fa-calendar"></i>
+          </button>
+          <div id="CalendarioFlotante" class="popover-calendario">
+            <calendar-date>
+              
+              <button slot="previous" class="nav-btn" type="button">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <calendar-month></calendar-month>
+              <button slot="next" class="nav-btn" type="button">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </calendar-date> 
+          </div>
+        </div>
       </nav>
     </header>
     
@@ -490,6 +499,9 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
+              <div id="alertaErrorSubtarea" class="alert alert-danger d-none" role="alert">
+                La subtarea no puede estar vacía
+              </div>
               <form id="formNuevaSubtarea">
                 <div class="mb-3">
                   <label for="tituloSubtarea" class="form-label">Subtarea</label>
@@ -515,7 +527,7 @@
     
 
    
-
+    <script type="module" src="https://unpkg.com/cally"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="js/taskManager.js"></script>
     <script src="js/index.js"></script>

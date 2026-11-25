@@ -1,33 +1,31 @@
 const taskManager = new TaskManager();
 console.log(taskManager.tasks);
 
-
-
-//FONDO WEB 
+//FONDO WEB
 document.addEventListener("DOMContentLoaded", () => {
-  
   const misImagenes = [
     {
-      url: "img/Berglandschaft.jpg", 
+      url: "img/Berglandschaft.jpg",
       titulo: "Primera Obra de Arte",
       autor: "Artista 1, 1889",
-      descripcion: "Descripción de prueba para la primera obra."
+      descripcion: "Descripción de prueba para la primera obra.",
     },
     {
-      url: "img/boote in der.jpg", 
+      url: "img/boote in der.jpg",
       titulo: "Segunda Obra de Arte",
       autor: "Artista 2, 1905",
-      descripcion: "Descripción de prueba para la segunda obra."
+      descripcion: "Descripción de prueba para la segunda obra.",
     },
     {
       url: "img/florence.jpg",
       titulo: "Florence",
       autor: "Vista histórica",
-      descripcion: "Representación artística de la hermosa ciudad de Florencia."
-    }
+      descripcion:
+        "Representación artística de la hermosa ciudad de Florencia.",
+    },
   ];
 
- let indiceActual = 0;
+  let indiceActual = 0;
 
   function cambiarFondo(index) {
     const obra = misImagenes[index];
@@ -52,106 +50,177 @@ document.addEventListener("DOMContentLoaded", () => {
   if (cuadroArte) {
     cuadroArte.style.cursor = "pointer";
     cuadroArte.title = "Haz clic para cambiar de obra de arte";
-    
+
     cuadroArte.addEventListener("click", () => {
       indiceActual = (indiceActual + 1) % misImagenes.length;
       cambiarFondo(indiceActual);
     });
   }
-});
 
-//SUBRAYADO DE TAREA COMPLETADA 
-const checksCompletar = document.querySelectorAll(".check-completar");
-checksCompletar.forEach((checkbox) =>{
-  checkbox.addEventListener("change", (event) =>{
-    const tarjetaTarea = event.target.closest(".tarjeta-tarea");
+  //SUBRAYADO DE TAREA COMPLETADA
+  const checksCompletar = document.querySelectorAll(".check-completar");
+  checksCompletar.forEach((checkbox) => {
+    checkbox.addEventListener("change", (event) => {
+      const tarjetaTarea = event.target.closest(".tarjeta-tarea");
 
-    if(tarjetaTarea){
-      if (event.target.checked) {
-        tarjetaTarea.classList.add("tarea-completada");
-      } else {
-        tarjetaTarea.classList.remove("tarea-completada");
+      if (tarjetaTarea) {
+        if (event.target.checked) {
+          tarjetaTarea.classList.add("tarea-completada");
+        } else {
+          tarjetaTarea.classList.remove("tarea-completada");
+        }
+      }
+    });
+  });
+
+  //SUBRAYADO DE SUBTAREA COMPLETADA
+  document.addEventListener("change", (event) => {
+    if (
+      event.target.matches(".subtarea-item input[type='checkbox']") ||
+      event.target.matches(".lista-subtareas input[type='checkbox']")
+    ) {
+      const subtareaItem = event.target.closest(".subtarea-item");
+      const label = subtareaItem ? subtareaItem.querySelector("label") : null;
+
+      if (label) {
+        if (event.target.checked) {
+          label.classList.add("subtarea-completada");
+        } else {
+          label.classList.remove("subtarea-completada");
+        }
       }
     }
   });
-});
 
-//SUBRAYADO DE SUBTAREA COMPLETADA
-document.addEventListener("change", (event) => {
+  //VALIDACION DE CAMPOS FORMULARIO NUEVA TAREA
+  function validFormFieldInput(data) {
+    let isValid = true;
 
-  if (event.target.matches(".subtarea-item input[type='checkbox']") || event.target.matches(".lista-subtareas input[type='checkbox']")) {
-    const subtareaItem = event.target.closest(".subtarea-item");
-    const label = subtareaItem ? subtareaItem.querySelector("label") : null;
+    if (!data.titulo || data.titulo.trim() === "") {
+      console.log("Realiza un ajuste: El nombre no puede estar vacío.");
+      isValid = false;
+    }
 
-    if (label) {
-      if (event.target.checked) {
-        label.classList.add("subtarea-completada");
-      } else {
-        label.classList.remove("subtarea-completada");
+    if (!data.categoria || data.categoria.trim() === "") {
+      console.log("Realiza un ajuste: Tienes que elegir una categoria.");
+    }
+
+    if (!data.fecha || data.fecha.trim() === "") {
+      console.log("Realiza un ajuste: Tienes que elegir una fecha.");
+      isValid = false;
+    }
+
+    return isValid;
+  }
+  //capturar los daots al enviar el formulario
+  const formNuevaTarea = document.querySelector("#formNuevaTarea");
+  const alertaError = document.querySelector("#alertaError");
+  if (formNuevaTarea) {
+    formNuevaTarea.addEventListener("submit", function (event) {
+      event.preventDefault(); // que la pagina se recargue por defecto
+
+      //identificar campos
+      const nuevaTareaNombreInput = document.querySelector("#tituloTarea");
+      const descripcionInput = document.querySelector("#descripcionTarea");
+      const categoriaInput = document.querySelector("#categoriaTarea");
+      const fechaInput = document.querySelector("#fechaTarea");
+      const prioridadInput = document.querySelector("#prioridadTareaModal");
+
+      const formData = {
+        titulo: nuevaTareaNombreInput ? nuevaTareaNombreInput.value : "",
+        descripcion: descripcionInput ? descripcionInput.value : "",
+        categoria: categoriaInput ? categoriaInput.value : "",
+        fecha: fechaInput ? fechaInput.value : "",
+        prioridad: prioridadInput ? prioridadInput.value : "",
+      };
+
+      if (validFormFieldInput(formData)) {
+        console.log("Todos los datos son correctos. Guardando tarea...");
+
+        taskManager.addTask(
+          formData.titulo,
+          formData.descripcion,
+          formData.fecha,
+          "PORHACER",
+          formData.categoria,
+          formData.prioridad
+        );
+
+        console.log("Tarea registrada:", taskManager.tasks);
+        alertaError.classList.add("d-none");
+      
+        const modalElement = document.querySelector("#modalNuevaTarea");
+        const modalInstance =
+          bootstrap.Modal.getInstance(modalElement) ||
+          new bootstrap.Modal(modalElement);
+
+        modalInstance.hide();
+
+        formNuevaTarea.reset();
       }
-    }
+    });
+  }
+
+  //VALIDACION DE CAMPOS FORMULARIO SUBTAREA
+  const formNuevaSubtarea = document.querySelector("#formNuevaSubtarea");
+  const alertaErrorSubtarea = document.querySelector('#alertaErrorSubtarea');
+  if (formNuevaSubtarea) {
+    formNuevaSubtarea.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const inputTituloSubtarea = document.querySelector("#tituloSubtarea");
+      const textoSubtarea = inputTituloSubtarea
+        ? inputTituloSubtarea.value.trim()
+        : "";
+
+      if (textoSubtarea === "") {
+        console.log(
+          "Realiza un ajuste: El nombre de la subtarea no puede estar vacío.",
+        );
+
+        if (alertaErrorSubtarea) {
+          alertaErrorSubtarea.classList.remove("d-none");
+        }
+        return;
+      }
+
+      if (alertaErrorSubtarea) {
+        alertaErrorSubtarea.classList.add("d-none");
+      }
+      console.log("Subtarea válida, Agregandi a la lista...");
+
+      const modalSubtareaEl = document.querySelector("#modalNuevaSubtarea");
+      const modalSubtareaInstance =
+        bootstrap.Modal.getInstance(modalSubtareaEl) ||
+        new bootstrap.Modal(modalSubtareaEl);
+      modalSubtareaInstance.hide();
+      formNuevaSubtarea.reset();
+    });
+  }
+
+
+  //FUNCIONALIDAD BOTÓN CALENDARIO
+const botonCalendario = document.querySelector(".btn-icono");
+const calendario = document.querySelector("#CalendarioFlotante");
+const contenedorCalendario = document.querySelector(".contenedor-calendario");
+
+if (botonCalendario && calendario) {
+  botonCalendario.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    calendario.classList.toggle("activo");
+  });
+}
+
+// Cerrar el calendario al hacer clic fuera
+document.addEventListener("click", (event) => {
+  if (
+    contenedorCalendario &&
+    calendario &&
+    !contenedorCalendario.contains(event.target)
+  ) {
+    calendario.classList.remove("activo");
   }
 });
 
-//VALIDACION DE CAMPOS FORMULARIO NUEVA TAREA
-function validFormFieldInput(data) {
-  let isValid = true;
-
-  if (!data.titulo || data.titulo.trim() === "") {
-    console.log("Realiza un ajuste: El nombre no puede estar vacío.");
-    isValid = false;
-  }
-
-  if (!data.categoria || data.categoria.trim() === ""){
-    console.log("Realiza un ajuste: Tienes que elegir una categoria.")
-  }
-
-  if (!data.fecha || data.fecha.trim() === ""){
-    console.log("Realiza un ajuste: Tienes que elegir una fecha.")
-  }
-
-  return isValid;
-}
-//capturar los daots al enviar el formulario
-const formNuevaTarea = document.querySelector('#formNuevaTarea');
-const alertaError = document.querySelector('#alertaError');
-if(formNuevaTarea){
-  formNuevaTarea.addEventListener('submit', function (event){
-    event.preventDefault(); // que la pagina se recargue por defecto
-
-    //identificar campos
-    const nuevaTareaNombreInput = document.querySelector('#tituloTarea');
-    const descripcionInput = document.querySelector('#descripcionTarea');
-    const categoriaInput = document.querySelector('#categoriaTarea');
-    const fechaInput= document.querySelector('#fechaTarea');
-    const prioridadInput = document.querySelector('#prioridadTareaModal');
-
-    const formData = {
-      titulo: nuevaTareaNombreInput ? nuevaTareaNombreInput.value : '',
-      descripcion: descripcionInput ? descripcionInput.value : '',
-      categoria: categoriaInput ? categoriaInput.value : '',
-      fecha: fechaInput ? fechaInput.value : '',
-      prioridad: prioridadInput ? prioridadInput.value : ''
-    }
-
-    if (validFormFieldInput(formData)) {
-      console.log("Todos los datos son correctos. Guardando tarea...");
-
-      alertaError.classList.add('d-none');
-
-      const modalElement = document.querySelector('#modalNuevaTarea');
-      const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-      modalInstance.hide();
-      formNuevaTarea.reset();
-
-    } else {
-      console.log("Por favor, completa los campos requeridos.");
-
-      alertaError.classList.remove('d-none')
-    }
-
-  })
-}
-//VALIDACION DE CAMPOS FORMULARIO SUBTAREA
-const formNuevaSubtarea = document.querySelector('#formNuevaSubtarea');
-
+});

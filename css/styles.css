@@ -4,6 +4,7 @@
   --color-texto-principal: #1f1f1f;
   --color-texto-secundario: #606060;
   --color-acento: #b08d57;
+  --color-calendar: #F5F5F5;
   --color-acento-hover: #967644;
   --sombra-sutil: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
@@ -53,17 +54,18 @@ header .container {
   background: transparent;
   outline: none;
   width: 100%;
-  margin-left: 0.5rem; /* distancia del texto y el icono */
+  margin-left: 0.4rem; /* distancia del texto y el icono */
   font-size: 0.875rem;
   color: var(--color-texto-principal);
 }
 
+/* calendario */
 .btn-icono {
   background: var(--color-tarjeta-bg);
   backdrop-filter: blur(8px);
   border: 1px solid var(--color-borde-cristal);
-  width: 36px;
-  height: 36px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -78,6 +80,40 @@ header .container {
 
 .btn-icono:hover {
   background: rgba(255, 255, 255, 0.98);
+}
+
+
+.contenedor-calendario {
+  position: relative;
+  display: inline-block;
+}
+
+.popover-calendario {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+  z-index: 100;
+  margin-top: 8px;
+  background: var(--color-calendar);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.popover-calendario.activo {
+  display: block;
+}
+
+
+.nav-btn {
+  cursor: pointer;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
 }
 
 .layout-principal {
@@ -473,9 +509,7 @@ header .container {
   padding: 0.85rem 1rem;
   border-radius: 8px;
   box-shadow: var(--sombra-sutil);
-  position: sticky;
-  z-index: 10;
-  top: 24rem;
+  position: static;
   margin-top: 0.85rem;
 }
 
