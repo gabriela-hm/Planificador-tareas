@@ -1,5 +1,8 @@
 const taskManager = new TaskManager();
-console.log(taskManager.tasks);
+taskManager.load();
+taskManager.render();
+
+console.log("Tareas recuperadas:", taskManager.tasks);
 
 //FONDO WEB
 document.addEventListener("DOMContentLoaded", () => {
@@ -73,6 +76,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  //ELIMINAR TAREA
+  document.addEventListener("click", (event) =>{
+    if (event.target.closest(".delete-button")) {
+      const botonEliminar = event.target.closest(".delete-button");
+      const tarjetaTarea = botonEliminar.closest(".tarjeta-tarea");
+      if(tarjetaTarea){
+        const taskId = Number(tarjetaTarea.dataset.taskId);
+        
+        console.log("Tarjeta seleccionada:", tarjetaTarea);
+        console.log("ID de la tarjeta:", taskId);
+        console.log("Todas las tarjetas:", document.querySelectorAll(".tarjeta-tarea"));
+        
+        taskManager.deleteTask(taskId);
+        taskManager.save();
+        tarjetaTarea.remove();
+        console.log("Tareas después de eliminar:", taskManager.tasks);
+      }
+    }
+  });
+
   //SUBRAYADO DE SUBTAREA COMPLETADA
   document.addEventListener("change", (event) => {
     if (
@@ -141,10 +164,12 @@ document.addEventListener("DOMContentLoaded", () => {
           formData.titulo,
           formData.descripcion,
           formData.fecha,
-          "PORHACER",
           formData.categoria,
           formData.prioridad
         );
+        
+        taskManager.save();
+        taskManager.render();
 
         console.log("Tarea registrada:", taskManager.tasks);
         alertaError.classList.add("d-none");

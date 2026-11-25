@@ -295,6 +295,24 @@ header .container {
   font-size: 0.7rem;
 }
 
+.badge-prioridad.prioridad-media{
+  background-color: rgba(248, 154, 120, 0.15);
+  color: #f5661a;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.badge-prioridad.prioridad-baja{
+  background-color: rgba(109, 118, 105, 0.15);
+  color: #6eb92e;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
 .tarea-descripcion {
   font-size: 0.825rem;
   color: var(--color-texto-secundario);
@@ -398,6 +416,12 @@ header .container {
   color: #dc3545;
 }
 
+.columna-lateral {
+  grid-column: 2;
+  position: sticky;
+  top: 1.5rem;
+}
+
 /* RESUMEN */
 .panel-lateral{
   background-color: var(--color-tarjeta-bg);
@@ -409,14 +433,9 @@ header .container {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  position: sticky; /* pega el elemento mientras se hace scroll */
-  top: 1.5rem;
 }
 
-.panel-lateral {
-  position: sticky;
-  top: 1.5rem;
-}
+
 
 .panel-titulo {
   font-size: 1.05rem;
@@ -499,7 +518,6 @@ header .container {
 
 /* decripcion arte */
 .cuadro-arte-info {
-  grid-column: 2;
   background-color: var(--color-tarjeta-bg);
   backdrop-filter: blur(10px);
   border-left: 3px solid var(--color-acento);

@@ -4,14 +4,14 @@
 
 ## Ajustes:
 
-1. subir la card de arte debajo de resumen
 2. adjuntar la foto de arte en la targeta de arte, para que sea mas visible, añadir datos
-3. Organizar colores calendar
-4. hhacer el boton de buscador funcional.
-5. validacion de campo subtarea
-6. reflejar tarea en tarjetas
-7. botones de filtros funcionales
-8. cambiar colores de categorias
-9. eliminar y editar tareas y subtareas
-10. revisar colores de prioridad
-11. hacer la tarjeta resumen funcional
+3. Organizar calendar
+4. hacer el boton de buscador funcional.
+5. botones de filtros funcionales
+6. cambiar colores de categorias
+7. eliminar y editar subtareas
+8. revisar colores de prioridad
+9. hacer la tarjeta resumen funcional
+10. eleiminar tareas ya escritas del formulario
+11. que el orden de las tareas cambie segun su prioridad
+12. Funcionalidad botón editar
