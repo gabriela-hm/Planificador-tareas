@@ -4,6 +4,7 @@
 
 ## Ajustes:
 
+1. que permanezca el subrayado de las tareas y subtareas
 2. adjuntar la foto de arte en la targeta de arte, para que sea mas visible, añadir datos
 3. Organizar calendar
 4. hacer el boton de buscador funcional.
